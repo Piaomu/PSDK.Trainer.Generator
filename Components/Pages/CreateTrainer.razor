@@ -1,0 +1,34 @@
+﻿@page "/CreateTrainer"
+@using PSDK.Trainer.Generator.Models
+<h3>Create a Trainer</h3>
+
+<EditForm Model="@trainer" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="name">Klass:</label>
+        <InputText id="name" @bind-Value="trainer.TrainerName" class="form-control" />
+        <ValidationMessage For="@(() => trainer.TrainerName)" />
+    </div>
+
+    <div class="form-group">
+        <label for="id">ID:</label>
+        <InputNumber id="class" @bind-Value="trainer.TrainerClass" class="form-control" />
+        <ValidationMessage For="@(() => trainer.TrainerClass)" />
+    </div>
+
+    <!-- Add other fields similarly -->
+
+    <button type="submit" class="btn btn-primary">Create Trainer</button>
+</EditForm>
+
+@code {
+    private Trainer trainer = new();
+
+    private void HandleValidSubmit()
+    {
+        // Handle form submission logic here
+        Console.WriteLine($"Created Trainer: {trainer.TrainerName}");
+    }
+}
