@@ -7,14 +7,14 @@
     <ValidationSummary />
 
     <div class="form-group">
-        <label for="name">Klass:</label>
+        <label for="name">Name</label>
         <InputText id="name" @bind-Value="trainer.TrainerName" class="form-control" />
         <ValidationMessage For="@(() => trainer.TrainerName)" />
     </div>
 
     <div class="form-group">
-        <label for="id">ID:</label>
-        <InputNumber id="class" @bind-Value="trainer.TrainerClass" class="form-control" />
+        <label for="id">Class</label>
+        <InputText id="class" @bind-Value="trainer.TrainerClass" class="form-control" />
         <ValidationMessage For="@(() => trainer.TrainerClass)" />
     </div>
 
