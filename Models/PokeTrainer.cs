@@ -2,7 +2,7 @@
 
 namespace PSDK.Trainer.Generator.Models
 {
-    public class Trainer
+    public class PokeTrainer
     {
         [JsonPropertyName("klass")]
         public string Klass { get; set; } = "TrainerBattleSetup";
