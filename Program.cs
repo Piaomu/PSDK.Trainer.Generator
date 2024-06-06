@@ -1,4 +1,5 @@
 using PSDK.Trainer.Generator.Components;
+using PSDK.Trainer.Generator.Services;
 
 namespace PSDK.Trainer.Generator
 {
@@ -11,6 +12,8 @@ namespace PSDK.Trainer.Generator
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+            builder.Services.AddTransient<IMockTrainerService, MockTrainerService>();
 
             var app = builder.Build();
 
