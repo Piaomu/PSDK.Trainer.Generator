@@ -1,0 +1,43 @@
+﻿@page "/Trainers"
+@using PSDK.Trainer.Generator.Services
+@inject PSDK.Trainer.Generator.Services.IMockTrainerService TrainerService
+
+<h3>List of Trainers</h3>
+
+@if (trainers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!trainers.Any())
+{
+    <p>No trainers found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>DB Symbol</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trainer in trainers)
+            {
+                <tr>
+                    <td>@trainer.Id</td>
+                    <td>@trainer.DbSymbol</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    private List<PokeTrainer> trainers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        trainers = await TrainerService.GetPokeTrainersAsync();
+    }
+
+}

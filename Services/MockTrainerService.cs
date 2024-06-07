@@ -1,17 +1,48 @@
-﻿using PSDK.Trainer.Generator.Models;
+﻿using Newtonsoft.Json;
+using PSDK.Trainer.Generator.Models;
 
 namespace PSDK.Trainer.Generator.Services
 {
     public class MockTrainerService : IMockTrainerService
     {
-        public Task<PokeTrainer> GetPokeTrainerByIdAsync(string id)
+        private readonly string _dataPath = @"MockData\Trainers";
+        public async Task<List<PokeTrainer>> GetPokeTrainersAsync()
         {
-            throw new NotImplementedException();
+            var trainers = new List<PokeTrainer>();
+
+            foreach (var file in Directory.GetFiles(_dataPath))
+            {
+                using (StreamReader reader = new StreamReader(file))
+                {
+                    var jsonString = await reader.ReadToEndAsync();
+                    var trainer = JsonConvert.DeserializeObject<PokeTrainer>(jsonString);
+                    trainers.Add(trainer);
+                }
+            }
+
+            return trainers;
         }
 
-        public Task<List<PokeTrainer>> GetPokeTrainersAsync()
+        public async Task<PokeTrainer?> GetPokeTrainerByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            PokeTrainer? trainer = null;
+
+            foreach (var file in Directory.GetFiles(_dataPath))
+            {
+                using (StreamReader reader = new(file))
+                {
+                    var jsonString = await reader.ReadToEndAsync();
+                    var currentTrainer = JsonConvert.DeserializeObject<PokeTrainer>(jsonString);
+
+                    if (currentTrainer?.Id.ToString() == id)
+                    {
+                        trainer = currentTrainer;
+                        break; 
+                    }
+                }
+            }
+
+            return trainer;
         }
     }
 }
